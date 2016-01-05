@@ -66,8 +66,17 @@ describe("parsesyllable_advance", function() {
 		});
 	});
 	it("complicate root", function() {
-		var rootchars = ["ཤར","དང","ནང","བཀའ","བསམ","མངགས","བཧགས"];
+		var rootchars = ["ཤར", "དང", "ནང", "བཀའ", "བསམ", "མངགས", "བཧགས"];
 		var ansch = ['ཤ', 'ད', 'ན', 'ཀ', 'ས', 'ང', 'ཧ'];
+		rootchars.map(function(ch, idx) {
+			var parsed = parseSyllable_advance(ch);
+//			console.log(parsed);
+			assert.equal(parsed.root, ansch[idx]);
+		});
+	});
+	it("super/vowel/sub", function() {
+		var rootchars = ["དགོས", "ལྔ", "ཞུགས", "མསྩེམས"];
+		var ansch = ['ག', 'ང', 'ཞ', 'ཙ'];
 		rootchars.map(function(ch, idx) {
 			var parsed = parseSyllable_advance(ch);
 //			console.log(parsed);

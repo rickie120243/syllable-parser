@@ -1,15 +1,16 @@
 var parseSyllable_advance = function(syl) {
 	//prescript, root, superscript, subscript, vowel, postscript, post-postscript
-	var r = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]+?)$/;
-	var r_vowel = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([ིེཻོཽུ]+?)$/;
-	var r_sub = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([ྭྱྲླཱ]+?)$/;
-	var r_super1 = /^(ར)([ྐྒྔྕྗྙྟྡྣྦྨྫ])$/;
-	var r_super2 = /^(ལ)([ྐྒྔྕྗྟྡྤྦྷ])$/;
-	var r_super3 = /^(ས)([ྐྒྔྙྟྡྣྤྦྨྩ])$/;
-    
+//	var r = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]+?)$/;
+//	var r_vowel = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([ིེཻོཽུ]+?)$/;
+//	var r_sub = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([ྭྱྲླཱ]+?)$/;
+
+	var r_super1 = /^([གདབམའ]{0,1})(ར)([ྐྒྔྕྗྙྟྡྣྦྨྫ]{0,1})([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
+	var r_super2 = /^([གདབམའ]{0,1})(ལ)([ྐྒྔྕྗྟྡྤྦྷ]{0,1})([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
+	var r_super3 = /^([གདབམའ]{0,1})(ས)([ྐྒྔྙྟྡྣྤྦྨྩ]{0,1})([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
+
     var r_only2 = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]{1})([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
 	var r_only3up = /^([གདབམའ]{0,1})([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]{1})([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
-	var r_all = /^([གདབམའ]{0,1})([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]{1})([ྐྑྒྔྕྖྗྙྟྠྡྣྤྥྦྨྩྪྫྮྯྰྴྶྷྸ]*?)([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
+	var r_vowel_sub = /^([གདབམའ]{0,1})([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]{1})([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]{0,1})([དས]{0,1})$/;
 
 	var m = syl.match(r_only2); //2個字母
 	if(m && syl.length <= 2) {
@@ -19,7 +20,29 @@ var parseSyllable_advance = function(syl) {
 	if(m && 2 < syl.length < 5) {
 		return {syl : syl, pre : m[1],  root : m[2], super : "", sub : "", vowel : "", post : m[3], ppost : m[4]};
 	}
-	return "ya";
+	m = syl.match(r_super1); //上加1
+	if(m) {
+		m[3] = String.fromCharCode(m[3].charCodeAt(0)-80);
+		return {syl : syl, pre : m[1],  root : m[3], super : m[2], sub : m[4], vowel : m[5], post : m[6], ppost : m[7]};
+	}
+	m = syl.match(r_super2); //上加2
+	if(m) {
+		m[3] = String.fromCharCode(m[3].charCodeAt(0)-80);
+		return {syl : syl, pre : m[1],  root : m[3], super : m[2], sub : m[4], vowel : m[5], post : m[6], ppost : m[7]};
+	}
+	m = syl.match(r_super3); //上加3
+	if(m) {
+		m[3] = String.fromCharCode(m[3].charCodeAt(0)-80);
+		return {syl : syl, pre : m[1],  root : m[3], super : m[2], sub : m[4], vowel : m[5], post : m[6], ppost : m[7]};
+	}
+	m = syl.match(r_vowel_sub); //母音下加
+	if(m) {
+		return {syl : syl, pre : m[1],  root : m[2], super : "", sub : m[3], vowel : m[4], post : m[5], ppost : m[6]};
+	}
+
+
+
+	return "I don't want to see this!";
 //	m = syl.match(r_all);
 //	if(m) {
 //		if(m[2] && !m[3] && !m[4] && !m[5]) {
