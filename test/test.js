@@ -70,7 +70,7 @@ describe("parsesyllable_advance", function() {
 		var ansch = ['ཤ', 'ད', 'ན', 'ཀ', 'ས', 'ང', 'ཧ'];
 		rootchars.map(function(ch, idx) {
 			var parsed = parseSyllable_advance(ch);
-//			console.log(parsed);
+			console.log(parsed);
 			assert.equal(parsed.root, ansch[idx]);
 		});
 	});
@@ -79,7 +79,7 @@ describe("parsesyllable_advance", function() {
 		var ansch = ['ག', 'ང', 'ཞ', 'ཙ'];
 		rootchars.map(function(ch, idx) {
 			var parsed = parseSyllable_advance(ch);
-//			console.log(parsed);
+			console.log(parsed);
 			assert.equal(parsed.root, ansch[idx]);
 		});
 	});
