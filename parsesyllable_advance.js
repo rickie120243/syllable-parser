@@ -1,4 +1,4 @@
-var parseSyllable_advance = function(syl) {
+var parseSyllable_advance = function(syl, i) {
 	//prescript, root, superscript, subscript, vowel, postscript, post-postscript
 //	var r = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ]+?)$/;
 //	var r_vowel = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([ིེཻོཽུ]+?)$/;
@@ -8,14 +8,14 @@ var parseSyllable_advance = function(syl) {
 	var r_super2 = /^([གདབམའ]?)(ལ)([ྐྒྔྕྗྟྡྤྦྷ])([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]?)([དས]?)$/;
 	var r_super3 = /^([གདབམའ]?)(ས)([ྐྒྔྙྟྡྣྤྦྨྩ])([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]?)([དས]?)$/;
 
-    var r_only2 = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([གངདནབམའརལས]?)([དས]*?)$/;
+    var r_only2 = /^([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([གངདནབམའརལས]?)$/;
 	var r_only3up = /^([གདབམའ]?)([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([གངདནབམའརལས]?)([དས]?)$/;
 	var r_vowel_sub = /^([གདབམའ]?)([ཀཁགངཅཆཇཉཏཐདནཔཕབམཙཚཛཝཞཟའཡརལཤསཧཨ])([ྭྱྲླཱ]*?)([ིེཻོཽུ]*?)([གངདནབམའརལས]?)([དས]?)$/;
 
-	var m = syl.match(r_only2); //2個字母
+	var m = syl.match(r_only2); //2個字母以下
 	if(m && syl.length <= 2) {
 		return {syl : syl, pre : "",  root : m[1], super : "",
-		 sub : "", vowel : "", post : m[2], ppost : m[3]};
+		 sub : "", vowel : "", post : m[2], ppost : ""};
 	}
 	m = syl.match(r_only3up); //3or4以上字母
 	if(m && 2 < syl.length < 5) {
@@ -43,7 +43,7 @@ var parseSyllable_advance = function(syl) {
 
 
 
-	return "I don't want to see this!";
+	return {syl : syl, mes : "can't parse"};
 //	m = syl.match(r_all);
 //	if(m) {
 //		if(m[2] && !m[3] && !m[4] && !m[5]) {
