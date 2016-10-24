@@ -1,0 +1,29 @@
+{
+  "name": "syllable-parser",
+  "version": "0.0.1",
+  "description": "parse tibetan syllable by spelling rules",
+  "main": "parsesyllable.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rickie120243/syllable-parser.git"
+  },
+  "keywords": [
+    "tibetan"
+  ],
+  "author": "karmapa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rickie120243/syllable-parser/issues"
+  },
+  "homepage": "https://github.com/rickie120243/syllable-parser#readme",
+  "dependencies": {
+    "glob": "^7.1.1",
+    "mocha": "^3.1.2"
+  }
+}
